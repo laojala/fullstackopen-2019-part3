@@ -55,7 +55,33 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
   })
 
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    
+    if (body.name === undefined) 
+      return response.status(400).json({ error: 'Name is missing' })
+    
+    if (body.number === undefined) 
+        return response.status(400).json({ error: 'Number is missing' })
+      
+    if (persons.some(person => person.name === body.name))
+        return response.status(400).json({ error: 'Name is already in the phone book' })
+    
+    if (persons.some(person => person.number === body.number))
+        return response.status(400).json({ error: 'Number is already in the phone book' })
 
+    const person = {
+      name: body.name,
+      number: body.number,
+      id: Math.floor(Math.random() * Math.floor(10000000000))
+    }
+  
+    persons = persons.concat(person)
+  
+    response.json(person)
+  })
+  
+ 
   
 
 const PORT = 3001
