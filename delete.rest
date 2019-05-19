@@ -1,0 +1,4 @@
+// test requests using:
+// https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+DELETE http://localhost:3001/api/persons/4

@@ -38,7 +38,7 @@ app.get('/info', (req, res) => {
     res.send(`<div>Phone book has ${len} persons<div>${date}<div>`)
   })
 
-  app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
   
@@ -47,6 +47,12 @@ app.get('/info', (req, res) => {
     } else {
       response.status(404).end()
     }
+  })
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+    response.status(204).end()
   })
 
 
