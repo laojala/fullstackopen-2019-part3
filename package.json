@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/laojala/fullstackopen-2019-part3-node#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.0",
     "morgan": "^1.9.1"
   },
