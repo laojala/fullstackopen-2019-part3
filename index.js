@@ -3,7 +3,11 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
 const app = express()
-app.use(morgan('tiny'))
+//app.use(morgan('tiny'))
+
+morgan.token('body', function (req, res) { return JSON.stringify(req.body) });
+app.use(morgan(':method :url :status - :body'));
+
 
 let persons = [
     {
@@ -57,6 +61,7 @@ app.delete('/api/persons/:id', (request, response) => {
     persons = persons.filter(person => person.id !== id)
     response.status(204).end()
   })
+
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
