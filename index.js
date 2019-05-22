@@ -5,11 +5,12 @@ const cors = require('cors')
 
 const app = express()
 
+
+app.use(express.static('build'))
 app.use(cors())
 
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) });
 app.use(morgan(':method :url :status - :body'));
-
 
 let persons = [
     {
