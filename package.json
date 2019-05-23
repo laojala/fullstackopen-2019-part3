@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../fullstackopen-2019/chapter_2/phone_book/ && npm run build --prod && cp -r build ../../../fullstackopen-2019-part3-node/ && cd ../../../fullstackopen-2019-part3-node/",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m 'ui build' && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m 'ui build' && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "repository": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.0",
+    "mongoose": "^5.5.10",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
