@@ -1,69 +1,63 @@
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser') 
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
 
 const app = express()
+
+const logger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
 
 
 app.use(express.static('build'))
 app.use(cors())
+app.use(logger)
 
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) });
 app.use(morgan(':method :url :status - :body'));
 
-let persons = [
-    {
-        name: "Äksy O'Brian",
-        number: "040-123456",
-        id: 1
-    },
-    {
-        name: 'Seke Äksyläinen',
-        number: '050-123123',
-        id: 2
-    },
-    {
-        name: "Karo O'Brian-Karoliininen",
-        number: "060-1234",
-        id: 3
-    },
-    {
-        name: "Sekeliina Kukkonen",
-        number: "070-231",
-        id: 4
-    },
-]
+let persons = []
   
 app.use(bodyParser.json())
 
-app.get('/api/persons', (req, res) => {
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons.map(person => person.toJSON()))
+  })
+})
+
   
-    res.json(persons)
-  })
+// app.get('/info', (req, res) => {
+//     const len = persons.length
+//     const date = new Date()
+//     res.send(`<div>Phone book has ${len} persons<div>${date}<div>`)
+//   })
 
-app.get('/info', (req, res) => {
-    const len = persons.length
-    const date = new Date()
-    res.send(`<div>Phone book has ${len} persons<div>${date}<div>`)
-  })
 
-app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(person => person.id === id)
+// app.get('/api/persons/:id', (request, response) => {
+//     const id = Number(request.params.id)
+//     const person = persons.find(person => person.id === id)
   
-    if (person) {
-      response.json(person)
-    } else {
-      response.status(404).end()
-    }
-  })
+//     if (person) {
+//       response.json(person)
+//     } else {
+//       response.status(404).end()
+//     }
+//   })
 
-app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(person => person.id !== id)
-    response.status(204).end()
-  })
+// app.delete('/api/persons/:id', (request, response) => {
+//     const id = Number(request.params.id)
+//     persons = persons.filter(person => person.id !== id)
+//     response.status(204).end()
+//   })
 
 
 app.post('/api/persons', (request, response) => {
@@ -78,19 +72,19 @@ app.post('/api/persons', (request, response) => {
     if (persons.some(person => person.number === body.number))
         return response.status(400).json({ error: 'Number is already in the phone book' })
 
-    const person = {
+
+    const person = new Person ({
       name: body.name,
       number: body.number,
-      id: Math.floor(Math.random() * Math.floor(10000000000))
-    }
+    })
   
-    persons = persons.concat(person)
+    person.save().then(savedPerson => {
+      response.json(savedPerson.toJSON())
+    })
+})
   
-    response.json(person)
-  })
-  
- 
+
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
