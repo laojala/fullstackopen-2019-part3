@@ -86,9 +86,6 @@ app.post('/api/persons', (request, response, next) => {
     if (body.number === undefined || body.number === "") 
         return response.status(400).json({ error: 'Number is missing' })
       
-    if (persons.some(person => person.number === body.number))
-        return response.status(400).json({ error: 'Number is already in the phone book' })
-
 
     const person = new Person ({
       name: body.name,
@@ -99,6 +96,7 @@ app.post('/api/persons', (request, response, next) => {
     .then(savedPerson => {
       response.json(savedPerson.toJSON())
     })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
@@ -113,6 +111,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError' && error.kind == 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
   } 
+  else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
 
   next(error)
 }
