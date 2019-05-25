@@ -49,12 +49,12 @@ app.put('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
   
-// app.get('/info', (req, res) => {
-//     const len = persons.length
-//     const date = new Date()
-//     res.send(`<div>Phone book has ${len} persons<div>${date}<div>`)
-//   })
-
+app.get('/info', (request, response) => {
+  Person.countDocuments({}).then(number => {
+    const date = new Date()
+    response.send(`<div>Phone book has ${number} persons<div>${date}<div>`)
+  })
+})
 
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
