@@ -5,7 +5,7 @@ Repository contains Node.js backend for a simple phone book. Data is stored to a
 Phone book service is hosted at:  
 <https://cryptic-peak-59110.herokuapp.com/>
 
-Backend shows data also at:
+Backend shows data also at:   
 <https://cryptic-peak-59110.herokuapp.com/api/persons>
 <https://cryptic-peak-59110.herokuapp.com/info>
 
