@@ -17,25 +17,10 @@ First, install dependencies:
 npm i
 ```
 
-To start backend locally (uses [Nodemon](https://github.com/remy/nodemon), that automatically restarts node when changes are saved):
+To start service locally (uses [Nodemon](https://github.com/remy/nodemon), that automatically restarts node when changes are saved):
 ```
 npm run watch
 ```
-
-
-## Frontend
-
-Fork frontend code from: https://github.com/laojala/fullstackopen-2019/tree/master/chapter_2/phone_book
-
-Configure `build:ui` parameter in the file `fullstackopen-2019-part3-node/package.json` to point to the frontend repository.
-
-To start service locally, run this command in the backend's repository `fullstackopen-2019-part3-node`:
-
-```
-npm run locally
-```
-
-
 
 ## Deployment to Heroku
 
@@ -55,5 +40,17 @@ heroku config:set MONGODB_URI=mongodb+srv://__your_uri_here__
 
 To deploy to the Heroku, run:
 ```
-npm run deploy:full
+npm run deploy
 ```
+
+## Frontend
+
+Frontend build is included in this repository. If you want to make changes to the frontend, fork code from: https://github.com/laojala/fullstackopen-2019/tree/master/chapter_2/phone_book
+
+Then configure `build:ui` parameter in the file `fullstackopen-2019-part3-node/package.json` to point to the frontend repository.
+
+To build UI and run the whole project, run:
+```
+npm run locally
+```
+
