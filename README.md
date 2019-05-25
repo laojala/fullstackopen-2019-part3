@@ -1,16 +1,16 @@
-# Node.JS backend
+# Node.JS phonebook app
 
-Repository contains Node.js backend and rest api for a simple phone book. Data is stored to a MongoDB Database.
+Repository contains Node.js backend for a simple phone book. Data is stored to a MongoDB Database.
 
 Phone book service is hosted at:  
 https://cryptic-peak-59110.herokuapp.com/
 
-Backend shows data also in urls:  
+Backend shows data also at:   
 https://cryptic-peak-59110.herokuapp.com/api/persons  
 https://cryptic-peak-59110.herokuapp.com/info
 
 
-## To use service
+## To run the service locally
 
 First, install dependencies:
 ```
@@ -21,6 +21,8 @@ To start service locally (uses [Nodemon](https://github.com/remy/nodemon), that 
 ```
 npm run watch
 ```
+
+Repository contains frontend build. Frontend can be accessed at http://localhost:3001/
 
 ## Deployment to Heroku
 
@@ -49,7 +51,7 @@ Frontend build is included in this repository. If you want to make changes to th
 
 Then configure `build:ui` parameter in the file `fullstackopen-2019-part3-node/package.json` to point to the frontend repository.
 
-To build UI and run the whole project, run:
+To build UI and start the whole project, run:
 ```
 npm run locally
 ```
