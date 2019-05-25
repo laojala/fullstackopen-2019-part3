@@ -34,6 +34,20 @@ app.get('/api/persons', (request, response) => {
   })
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson.toJSON())
+    })
+    .catch(error => next(error))
+})
   
 // app.get('/info', (req, res) => {
 //     const len = persons.length
@@ -42,17 +56,18 @@ app.get('/api/persons', (request, response) => {
 //   })
 
 
-// app.get('/api/persons/:id', (request, response) => {
-//     const id = Number(request.params.id)
-//     const person = persons.find(person => person.id === id)
+app.get('/api/persons/:id', (request, response, next) => {
+  Person.findById(request.params.id)
+  .then(person => {
+    if (person) {
+      response.json(person.toJSON())
+    } else {
+      response.status(404).end()
+    }
+  })
+  .catch(error => next(error))
+})
   
-//     if (person) {
-//       response.json(person)
-//     } else {
-//       response.status(404).end()
-//     }
-//   })
-
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
@@ -62,7 +77,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
     
     if (body.name === undefined || body.name === "") 
@@ -80,7 +95,8 @@ app.post('/api/persons', (request, response) => {
       number: body.number,
     })
   
-    person.save().then(savedPerson => {
+    person.save()
+    .then(savedPerson => {
       response.json(savedPerson.toJSON())
     })
 })
