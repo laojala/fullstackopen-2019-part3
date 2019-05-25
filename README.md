@@ -28,7 +28,7 @@ Repository contains frontend build. Frontend can be accessed at http://localhost
 
 ### Preparing deployment
 
-Create emty database (for instance to [MongoDB Atlas cloud](https://www.mongodb.com/cloud/atlas)). Place database uri to a file `.env`.
+Create database (for instance to [MongoDB Atlas cloud](https://www.mongodb.com/cloud/atlas)). Place database uri to a file `.env`.
 
 Then create Heroku project within the repository: 
 ```
