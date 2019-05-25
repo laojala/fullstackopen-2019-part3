@@ -6,7 +6,7 @@ Phone book service is hosted at:
 <https://cryptic-peak-59110.herokuapp.com/>
 
 Backend shows data also at:   
-<https://cryptic-peak-59110.herokuapp.com/api/persons>
+<https://cryptic-peak-59110.herokuapp.com/api/persons>   
 <https://cryptic-peak-59110.herokuapp.com/info>
 
 ## To run the service locally
